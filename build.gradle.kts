@@ -1,5 +1,6 @@
 plugins {
     idea
+    jacoco
     id("org.jetbrains.kotlin.jvm") version "1.3.50"
     id("org.jetbrains.kotlin.kapt") version "1.3.50"
     id("org.springframework.boot") version "2.1.9.RELEASE" apply false
@@ -42,6 +43,27 @@ subprojects {
                 freeCompilerArgs = listOf("-Xjsr305=strict")
                 jvmTarget = "1.8"
             }
+        }
+
+        withType<Test> {
+            useTestNG()
+        }
+
+        val codeCoverageReport by creating(JacocoReport::class) {
+            executionData(fileTree(project.rootDir.absolutePath).include("**/build/jacoco/*.exec"))
+
+            subprojects.onEach {
+                sourceSets(it.sourceSets["main"])
+            }
+
+            reports {
+                xml.isEnabled = true
+                xml.destination = File("$buildDir/reports/jacoco/report.xml")
+                html.isEnabled = false
+                csv.isEnabled = false
+            }
+
+            dependsOn("test")
         }
     }
 
