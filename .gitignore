@@ -1,0 +1,12 @@
+/.DS_Store
+/.idea
+/out
+/build
+*.iml
+*.class
+*.log
+*.jar
+*.war
+.gradle
+!gradle-wrapper.jar
+**/build
