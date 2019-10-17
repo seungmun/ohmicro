@@ -1,7 +1,9 @@
 /.DS_Store
 /.idea
 /out
+**/out
 /build
+**/build
 *.iml
 *.class
 *.log
@@ -9,4 +11,3 @@
 *.war
 .gradle
 !gradle-wrapper.jar
-**/build
